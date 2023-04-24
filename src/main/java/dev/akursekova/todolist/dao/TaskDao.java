@@ -29,9 +29,9 @@ public class TaskDao {
     }
 
     @Transactional(readOnly = true, propagation = Propagation.REQUIRED)
-    //TODO отличается от лекции 47:40
     public int getAllCount(){
-        return getSession().createQuery("select count(t) from Task t").getFirstResult();
+        Query<Long> query = getSession().createQuery("select count(t) from Task t", Long.class);
+        return Math.toIntExact(query.uniqueResult());
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
